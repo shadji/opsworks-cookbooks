@@ -1,0 +1,4 @@
+check host instacollab-push-server with address 127.0.0.1
+	start program = "/bin/bash -c 'cd <%= @deploy[:deploy_to] %>/current ; source <%= @deploy[:deploy_to] %>/shared/app.env ; /usr/bin/env NODE_ENV=production NODE_PATH=<%= @deploy[:deploy_to] %>/current/node_modules:<%= @deploy[:deploy_to] %>/current   /usr/local/bin/node <%= @deploy[:deploy_to] %>/current/server/push/server/main.js --log-file/srv/www/autols_all/push-logs/push-server.log &>> /srv/www/autols_all/push-logs/push-server-console.log'"
+	stop program = "/usr/bin/pkill -f 'node <%= @monitored_script %>'"
+	if failed port 41414 type tcp then restart
